@@ -23,26 +23,7 @@ ViT-L/14 + Deep Mahalanobis → AUROC = 0.994
 
 Closed-set accuracy (known classes only) → ~99.9%
 
-📂 Dataset Structure
-
-The dataset is structured as:
-
-Fish Dataset/
-│
-├── Gilt-Head Bream/
-├── Hourse Mackerel/
-├── Red Mullet/
-├── Red Sea Bream/
-├── Striped Red Mullet/
-├── Trout/
-│
-├── Sea Bass/           # Unknown (test only)
-├── Black Sea Sprat/    # Unknown (test only)
-├── Shrimp/             # Unknown (test only)
-│
-├── train.csv
-├── val.csv
-└── test.csv
+📂 Dataset
 
 Known Classes
 
