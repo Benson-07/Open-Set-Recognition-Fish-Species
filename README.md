@@ -1,0 +1,137 @@
+🐟 Open-Set Recognition for Marine Fish Species
+
+CLIP Vision Transformers + Mahalanobis + Deep Mahalanobis
+
+This repository contains a complete Open-Set Recognition (OSR) pipeline for marine fish species using CLIP ViT models and Mahalanobis-based unknown detection.
+The goal: build a classifier that not only recognises known fish species, but also rejects unseen/unknown species reliably—crucial for real-world marine monitoring.
+
+📌 Project Highlights
+
+6 known fish species used for training
+
+3 unseen species used only during testing
+
+CLIP ViT-B/32, ViT-B/16, ViT-L/14 as frozen feature extractors
+
+Linear classifier for closed-set classification
+
+MSP, Energy, Mahalanobis, Deep Mahalanobis for OSR
+
+State-of-the-art open-set performance:
+
+ViT-L/14 + Deep Mahalanobis → AUROC = 0.994
+
+Closed-set accuracy (known classes only) → ~99.9%
+
+📂 Dataset Structure
+
+The dataset is structured as:
+
+Fish Dataset/
+│
+├── Gilt-Head Bream/
+├── Hourse Mackerel/
+├── Red Mullet/
+├── Red Sea Bream/
+├── Striped Red Mullet/
+├── Trout/
+│
+├── Sea Bass/           # Unknown (test only)
+├── Black Sea Sprat/    # Unknown (test only)
+├── Shrimp/             # Unknown (test only)
+│
+├── train.csv
+├── val.csv
+└── test.csv
+
+Known Classes
+
+Gilt-Head Bream
+
+Hourse Mackerel
+
+Red Mullet
+
+Red Sea Bream
+
+Striped Red Mullet
+
+Trout
+
+Unknown Classes
+
+Sea Bass
+
+Black Sea Sprat
+
+Shrimp
+
+🧠 Method Overview
+1️⃣ Feature Extraction (CLIP)
+
+We use frozen CLIP backbones:
+
+ViT-B/32
+
+ViT-B/16
+
+ViT-L/14
+
+For each image, we extract the L2-normalized CLS embedding.
+
+2️⃣ Closed-Set Classifier
+
+A simple multinomial Logistic Regression is trained on known classes.
+
+Why logistic regression?
+
+CLIP embeddings are extremely powerful
+
+Ensures good interpretability
+
+Avoids overfitting
+
+Provides clean logits for OSR methods
+
+3️⃣ Open-Set Recognition Methods
+MSP (Max Softmax Probability)
+
+Simple confidence score → weakest performance.
+
+Energy Score
+
+Uses log-sum-exp of logits.
+
+Mahalanobis Distance
+
+Computes distance to class-mean embedding:
+
+Estimates shared covariance using Ledoit–Wolf
+
+Excellent separation of known vs unknown samples
+
+Deep Mahalanobis
+
+Extracts features from multiple transformer layers:
+
+For ViT-L/14 → blocks [3, 7, 15, 23]
+
+For ViT-B models → blocks [2, 5, 8, 11]
+
+Fuses distances from all layers → strongest OSR performance.
+
+📊 Results
+Closed-Set Accuracy (Known Species Only)
+Backbone	Val Acc	Test Acc (Known Only)
+ViT-B/32	99.56%	99.34%
+ViT-B/16	99.78%	99.89%
+ViT-L/14	99.78%	99.89%
+OSR AUROC Scores
+Backbone	MSP	Energy	Mahalanobis	Deep Mahalanobis
+ViT-B/32	0.812	0.786	0.921	0.928
+ViT-B/16	0.901	0.907	0.962	0.988
+ViT-L/14	0.882	0.864	0.992	0.994
+
+👉 Best Model:
+ViT-L/14 + Deep Mahalanobis (AUROC = 0.994)
+
