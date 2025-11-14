@@ -101,17 +101,6 @@ For ViT-B models → blocks [2, 5, 8, 11]
 
 Fuses distances from all layers → strongest OSR performance.
 
-📊 Results
-Closed-Set Accuracy (Known Species Only)
-Backbone	Val Acc	Test Acc (Known Only)
-ViT-B/32	99.56%	99.34%
-ViT-B/16	99.78%	99.89%
-ViT-L/14	99.78%	99.89%
-OSR AUROC Scores
-Backbone	MSP	Energy	Mahalanobis	Deep Mahalanobis
-ViT-B/32	0.812	0.786	0.921	0.928
-ViT-B/16	0.901	0.907	0.962	0.988
-ViT-L/14	0.882	0.864	0.992	0.994
 
 👉 Best Model:
 ViT-L/14 + Deep Mahalanobis (AUROC = 0.994)
